@@ -1,14 +1,19 @@
 import { useState } from 'react'
 import styles from '../styles/Home.module.css'
-import { dynamicComponent, PATH_MAP } from '../components/dynamicComponent'
+import { useRouter } from 'next/router'
+import { dynamicComponent } from '../components/dynamicComponent'
 
 const POSSIBLE_VALUES = ['None Selected', 'ComponentOne', 'ComponentTwo']
 
 const Switcher = ({}) => {
+    const router = useRouter()
     const [selected, setSelected] = useState('None Selected')
 
     return (
         <>
+            <div style={{ marginLeft: '20px', marginTop: '20px' }}>
+                <b>Select Compoent:</b>
+            </div>
             <div className={styles.card}>
                 <form>
                     <select
@@ -24,11 +29,24 @@ const Switcher = ({}) => {
                     </select>
                 </form>
             </div>
-
+            <div style={{ marginLeft: '20px' }}>
+                <b>
+                    Dynamic Display of Component:{' '}
+                    {selected != 'None Selected'
+                        ? `(Click component below to navigate to stand-alone component)`
+                        : null}
+                </b>
+            </div>
             {selected != 'None Selected' ? (
-                dynamicComponent(selected)
+                <div
+                    onClick={() => {
+                        router.push(`/components/${selected}`)
+                    }}
+                >
+                    {dynamicComponent(selected)}
+                </div>
             ) : (
-                <div className={styles.card}>Selected Component: {selected}</div>
+                <div className={styles.card}>No Component to preview for "{selected}"</div>
             )}
         </>
     )
