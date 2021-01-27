@@ -24,17 +24,13 @@ export const getStaticProps = async (context) => {
 }
 
 export async function getStaticPaths() {
-    const en_componentNames = Object.keys(PATH_MAP).map((componentName) => ({
-        params: { componentName },
-        locale: 'en',
-    }))
-    const de_componentNames = Object.keys(PATH_MAP).map((componentName) => ({
-        params: { componentName },
-        locale: 'de',
-    }))
+    const componentNames = []
+    Object.keys(PATH_MAP).forEach((componentName) => {
+        ;['en', 'de'].forEach((locale) => componentNames.push({ params: { componentName }, locale }))
+    })
 
     return {
-        paths: en_componentNames.concat(de_componentNames),
+        paths: componentNames,
         fallback: false,
     }
 }
