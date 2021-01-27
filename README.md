@@ -7,7 +7,7 @@ yarn dev
 ## Good case:
 
 Navigate to:
-- http://localhost:3000/\<LOCALE\>/components/ComponentOne
+- http://localhost:3000/<LOCALE\>/components/ComponentOne
 - http://localhost:3000/<LOCALE>/components/ComponentTwo
 
 where LOCALE is element of ['de','en']
